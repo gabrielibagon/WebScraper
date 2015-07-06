@@ -12,14 +12,14 @@ public class WebScraper {
 		String department = "American";
 		Browser b = new Browser(department);
 		Playlist p = new Playlist();
-		ArrayList<String> urlCollection = b.getUrl();	
+		ArrayList<String> urlCollection = b.getURLCollection();	
 		ArrayList<String> list1 = new ArrayList<String>();
 		//connecting to the webpage
 		for (String url : urlCollection){
-			
 			try{
 				Document doc = Jsoup.connect(url).get();
 				list1 = p.extractPlaylist(doc);
+				System.out.println("haha");
 			}
 			catch(IOException e){
 				System.out.println("Cannot connect to site");
@@ -27,15 +27,13 @@ public class WebScraper {
 			
 		}
 		p.addPlaylists(list1);
+		
+		// to output to txt for testing
 		ArrayList<String> totalPlaylists = p.getLists();
-		PrintWriter out1 = new PrintWriter("hello.txt");
+		PrintWriter out1 = new PrintWriter("hellobitch.txt");
 		out1.println(totalPlaylists);
 		out1.close();
 
-//		ArrayList<String> totalPlaylists = p.getLists();
-//		for (String artist : totalPlaylists){
-//			System.out.println(artist);
-//		}
 		
 		//creates new playlist object for individual webpage
 		p.playCount();

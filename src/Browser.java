@@ -4,28 +4,50 @@ import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import java.util.ArrayList;
 
 public class Browser {
 	
 	private Document home;
 	private ArrayList<String> urlCollection;
-	private String departmentURL;
+	private ArrayList<String> departmentURL;
 	
 	//Sets up the browser
 	//the browser starts at the dept playlist home.
 	public Browser(String department){
+		departmentURL = new ArrayList<String>();
 		departmentURL = byDepartment(department);
-		try{
-			home = Jsoup.connect(departmentURL).get();
-		}
-		catch(IOException e){
-			System.out.println("Cannot connect to site");
+		urlCollection = new ArrayList<String>();
+		for (int j = 0; j < 10; j++){
+			try{
+				home = Jsoup.connect(departmentURL.get(j)).get();
+				makeURLCollection(home);
+			}
+			catch(IOException e){
+				System.out.println("Cannot connect to site");
+			}
 		}
 	}
 	
-	public String byDepartment(String department){
-		String AmericanURL = 
-				"https://www.cc-seas.columbia.edu/wkcr/playlist?field_department_nid=52";
+//	public void pageBrowser(String[] departmentURL){
+//		for (String url : departmentURL){
+//			Document home;
+//			try{
+//				home = Jsoup.connect(url).get();
+//				makeURLCollection(home);
+//			}
+//			catch(IOException e){
+//				System.out.println("Cannot connect to site");
+//			}
+//		}
+//	}
+	
+	public ArrayList<String> byDepartment(String department){
+		ArrayList<String> AmericanURL = new ArrayList<String>();
+		AmericanURL.add("https://www.cc-seas.columbia.edu/wkcr/playlist?field_department_nid=52");
+		for (int i = 1; i < 10; i++){
+			AmericanURL.add("https://www.cc-seas.columbia.edu/wkcr/playlist?page=" + i + "&field_department_nid=52");
+		}
 		if (department == "American"){
 			departmentURL = AmericanURL;
 		}
@@ -33,8 +55,7 @@ public class Browser {
 	}
 	
 	//makes an ArrayList of URLs on a page (home)
-	public ArrayList<String> getUrl(){
-		ArrayList<String> urlCollection = new ArrayList<String>();
+	public void makeURLCollection(Document home){
 		Elements htmlURL = 
 			home.select
 			("td.views-field.views-field-field-station-program-nid");
@@ -43,7 +64,9 @@ public class Browser {
 			String absUrl = link.attr("abs:href");
 			urlCollection.add(absUrl);
 		}
-		//System.out.println(urlCollection);
+	}
+	
+	public ArrayList<String> getURLCollection(){
 		return urlCollection;
 	}
 }
