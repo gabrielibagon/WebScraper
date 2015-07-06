@@ -13,19 +13,20 @@ public class WebScraper {
 		Browser b = new Browser(department);
 		Playlist p = new Playlist();
 		ArrayList<String> urlCollection = b.getUrl();	
-		
-		
+		ArrayList<String> list1 = new ArrayList<String>();
 		//connecting to the webpage
 		for (String url : urlCollection){
+			
 			try{
 				Document doc = Jsoup.connect(url).get();
-				ArrayList<String> list1 = p.extractPlaylist(doc);
-				p.addPlaylists(list1);
+				list1 = p.extractPlaylist(doc);
 			}
 			catch(IOException e){
 				System.out.println("Cannot connect to site");
 			}
+			
 		}
+		p.addPlaylists(list1);
 		ArrayList<String> totalPlaylists = p.getLists();
 		PrintWriter out1 = new PrintWriter("hello.txt");
 		out1.println(totalPlaylists);
