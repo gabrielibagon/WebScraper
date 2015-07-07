@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,12 +10,16 @@ import org.jsoup.select.Elements;
 public class Playlist {
 	
 	private ArrayList<String> artists;
-	private ArrayList<String>totalPlaylists;
+	private ArrayList<String> totalPlaylists;
+	public ArrayList<String> finalArtist;
+	public ArrayList<Integer> finalCount;
 	
 	
 	public Playlist(){
 		artists = new ArrayList<>();
 		totalPlaylists = new ArrayList<>();
+		finalArtist = new ArrayList<>();
+		finalCount = new ArrayList<>();
 	}
 	
 	//Extracts artist information from playlist
@@ -33,7 +36,7 @@ public class Playlist {
 	//the playlists from one specific department
 	public void addPlaylists(ArrayList<String> list){
 		//ArrayList<String> totalPlaylists = new ArrayList<String>();
-		System.out.println(list);
+		//System.out.println(list);
 		for (int i = 0; i < list.size();i++){
 			totalPlaylists.add(list.get(i));
 		}
@@ -43,7 +46,7 @@ public class Playlist {
 		return totalPlaylists;
 	}
 	
-	//counts the plays per artist in total playlists
+	//generates the counts the plays per artist in total playlists
 	public void playCount(){
 		System.out.println(totalPlaylists);
 		Map<String, Integer> occurences = new HashMap<String, Integer>();
@@ -51,9 +54,17 @@ public class Playlist {
 			occurences.put(artist, occurences.containsKey(artist)
 			? occurences.get(artist) + 1 : 1);
 		}
-		System.out.println(occurences);
 		for (Entry<String, Integer> entry : occurences.entrySet()){
-			System.out.println(entry.getKey() + " : " + entry.getValue());
+			finalArtist.add(entry.getKey());
+			finalCount.add(entry.getValue());
 		}
+	}
+	
+	public ArrayList<String> getFinalArtist(){
+		return finalArtist;
+	}
+	
+	public ArrayList<Integer> getFinalCount(){
+		return finalCount;
 	}
 }

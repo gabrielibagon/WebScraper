@@ -1,6 +1,5 @@
 import org.jsoup.*;
 import org.jsoup.nodes.Document;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,15 +27,14 @@ public class WebScraper {
 		}
 		p.addPlaylists(list1);
 		
-		// to output to txt for testing
-		ArrayList<String> totalPlaylists = p.getLists();
-		PrintWriter out1 = new PrintWriter("hellobitch.txt");
-		out1.println(totalPlaylists);
-		out1.close();
-
-		
-		//creates new playlist object for individual webpage
 		p.playCount();
-		
+		ArrayList<String> finalArtist = p.getFinalArtist();
+		ArrayList<Integer> finalCount = p.getFinalCount();
+		PrintWriter out1 = new PrintWriter("AmericanPlaylists.xls");
+		for (int i = 0; i < p.getFinalArtist().size(); i++){
+			out1.println(finalArtist.get(i) + "\t" + finalCount.get(i));		
+			//System.out.println(finalArtist.get(i) + ": " + finalCount.get(i));
+		}
+		out1.close();
 	}
 }
