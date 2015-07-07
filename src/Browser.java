@@ -18,7 +18,7 @@ public class Browser {
 		departmentURL = new ArrayList<String>();
 		departmentURL = byDepartment(department);
 		urlCollection = new ArrayList<String>();
-		for (int j = 0; j < 10; j++){
+		for (int j = 0; j < departmentURL.size(); j++){
 			try{
 				home = Jsoup.connect(departmentURL.get(j)).get();
 				makeURLCollection(home);
@@ -29,18 +29,6 @@ public class Browser {
 		}
 	}
 	
-//	public void pageBrowser(String[] departmentURL){
-//		for (String url : departmentURL){
-//			Document home;
-//			try{
-//				home = Jsoup.connect(url).get();
-//				makeURLCollection(home);
-//			}
-//			catch(IOException e){
-//				System.out.println("Cannot connect to site");
-//			}
-//		}
-//	}
 	//by department or by show
 	public ArrayList<String> byDepartment(String department){
 		//American ArrayLists
@@ -53,7 +41,8 @@ public class Browser {
 		ArrayList<String> Offbeat = new ArrayList<String>();
 		ArrayList<String> SomethingInsideOfMe = new ArrayList<String>();
 		ArrayList<String> TheMoonshineShow = new ArrayList<String>();
-		ArrayList<String> TuesdaysJustAsBad = new ArrayList<String>();
+		ArrayList<String> TuesdaysJustAsBad = new ArrayList<String>();		
+		
 		
 		//American ALL [10 pages]
 		AmericanURL.add("https://www.cc-seas.columbia.edu/wkcr/playlist?field_department_nid=52");
@@ -82,7 +71,6 @@ public class Browser {
 		TuesdaysJustAsBad.add("https://www.cc-seas.columbia.edu/wkcr/playlist?field_station_program_nid=29");
 		TuesdaysJustAsBad.add("https://www.cc-seas.columbia.edu/wkcr/playlist?page=1&field_station_program_nid=29");
 		
-		
 		if (department == "American"){
 			departmentURL = AmericanURL;
 		}
@@ -95,7 +83,7 @@ public class Browser {
 		if (department == "Hobo's Lullaby"){
 			departmentURL = HobosLullaby;
 		}
-		if (department == "HonkyTonkin"){
+		if (department == "Honky Tonkin"){
 			departmentURL = HonkyTonkin;
 		}
 		if (department == "Night Train"){

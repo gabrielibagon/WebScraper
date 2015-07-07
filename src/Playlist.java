@@ -35,8 +35,6 @@ public class Playlist {
 	//the totalPlaylists Arraylist contains all of the artists of
 	//the playlists from one specific department
 	public void addPlaylists(ArrayList<String> list){
-		//ArrayList<String> totalPlaylists = new ArrayList<String>();
-		//System.out.println(list);
 		for (int i = 0; i < list.size();i++){
 			totalPlaylists.add(list.get(i));
 		}
